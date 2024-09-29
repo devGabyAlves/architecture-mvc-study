@@ -1,5 +1,5 @@
-import pytest
 from unittest import mock
+import pytest
 from mock_alchemy.mocking import UnifiedAlchemyMagicMock
 from src.models.sqlite.entities.pets import PetsTable
 from sqlalchemy.orm.exc import NoResultFound
