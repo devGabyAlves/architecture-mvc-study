@@ -2,6 +2,7 @@ from typing import Dict
 import re
 from src.models.sqlite.interfaces.people_repository import PeopleReposirotyInterface
 from .interfaces.person_creator_controller import PersonCreatorControllerInterface
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 class PersonCreatorController(PersonCreatorControllerInterface):
     def __init__(self, people_repository: PeopleReposirotyInterface) -> None:
         self.__people_repository = people_repository
@@ -21,7 +22,7 @@ class PersonCreatorController(PersonCreatorControllerInterface):
         non_valid_caracteres = re.compile(r'[^a-zA-Z]')
 
         if non_valid_caracteres.search(first_name) or non_valid_caracteres(last_name):
-            raise Exception("Nome da pessoa invalido!")
+            raise HttpBadRequestError("Nome da pessoa invalido!")
         
     def __insert_person_in_db(self, firs_name: str, last_name: str, age: int, pet_id: int) -> None:
         self.__people_repository.insert_person(firs_name, last_name, age, pet_id)
